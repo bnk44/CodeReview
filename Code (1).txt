@@ -1,0 +1,61 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+public class TextController : MonoBehaviour
+{
+    public Text objText;
+    int intRandomNumber;
+    int intGuessedNumber;
+
+
+
+
+    private void InitializeGame()
+    {
+    
+        intRandomNumber = Random.Range(1, 10);
+
+        objText.text = "Guess the number";
+    }
+    
+        void Start()
+    {
+        InitializeGame();
+    }
+
+    void Update()
+    {
+       
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InitializeGame();
+        }
+        if (Input.anyKeyDown)
+        {
+           
+            if (int.TryParse(Input.inputString, out intGuessedNumber))
+            {
+                if (intRandomNumber > intGuessedNumber)
+                {
+                    objText.text =
+                        string.Format("You guessed {0}. You are too low"
+                        , intGuessedNumber);
+                }
+
+                if (intRandomNumber < intGuessedNumber)
+                {
+                    objText.text =
+                        string.Format("You guessed {0}. You are too high"
+                        , intGuessedNumber);
+                }
+
+                if (intRandomNumber == intGuessedNumber)
+                {
+                    objText.text =
+                        string.Format("You guessed {0}. \n You are correct! \n (press spacebar to continue)"
+                        , intGuessedNumber);
+                }
+            }
+        }
+    }
+}
