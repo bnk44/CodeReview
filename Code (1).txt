@@ -3,9 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 public class TextController : MonoBehaviour
 {
-    public Text objText;
-    int intRandomNumber;
-    int intGuessedNumber;
+    // Not good name , Changed the name 
+    public Text UResult;
+    // req error , Changed the reuirment 	 
+    int UserOneNumber; 
+    int UserTwoNumber; 
 
 
 
@@ -13,9 +15,9 @@ public class TextController : MonoBehaviour
     private void InitializeGame()
     {
     
-        intRandomNumber = Random.Range(1, 10);
+         InputField UserOneNumber = GameObject.Find(UserOneNumber).GetComponent<InputField>();
 
-        objText.text = "Guess the number";
+        UResult.text = "Guess the number";
     }
     
         void Start()
@@ -23,39 +25,41 @@ public class TextController : MonoBehaviour
         InitializeGame();
     }
 
-    void Update()
+    void Update() // too long -
     {
        
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) //input is hardcode-          
         {
             InitializeGame();
         }
         if (Input.anyKeyDown)
         {
            
-            if (int.TryParse(Input.inputString, out intGuessedNumber))
+            if (int.TryParse(Input.inputString, out UserTwoNumber))
             {
-                if (intRandomNumber > intGuessedNumber)
+                if (UserOneNumber > UserTwoNumber)
                 {
-                    objText.text =
+                    UResult.text =
                         string.Format("You guessed {0}. You are too low"
-                        , intGuessedNumber);
+                        , UserTwoNumber);
                 }
 
-                if (intRandomNumber < intGuessedNumber)
+                if (UserOneNumber < UserTwoNumber)
                 {
-                    objText.text =
+                   UResult.text =
                         string.Format("You guessed {0}. You are too high"
-                        , intGuessedNumber);
+                        , UserTwoNumber);
                 }
 
-                if (intRandomNumber == intGuessedNumber)
+                if (UserOneNumber == UserTwoNumber)
                 {
-                    objText.text =
+                    UResult.text =
                         string.Format("You guessed {0}. \n You are correct! \n (press spacebar to continue)"
-                        , intGuessedNumber);
+                        , UserTwoNumber);
                 }
-            }
+            } else{
+		 UResult.text =  string.Format("Please enter a number");		}
+
         }
     }
 }
